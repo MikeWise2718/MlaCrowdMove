@@ -34,7 +34,7 @@ public class CmvAgent : Agent
 
     public void SetupAgentSpaceType(SpaceType reqstype)
     {
-        Debug.Log($"SetupAgentSpaceType for {name}");
+        Debug.Log($"  SetupAgentSpaceType for {name}");
         var bphp = GetComponent<BehaviorParameters>();
 
         var bp = bphp.brainParameters;
@@ -71,7 +71,7 @@ public class CmvAgent : Agent
     }
     public void SetupAgent(CmvAgMan cmvAgMan)
     {
-        Debug.Log($"SetupAgent for {name}");
+        Debug.Log($"  SetupAgent for {name}");
         this.cmvAgMan = cmvAgMan;
         SetupAgentSpaceType(SpaceType.Continuous);
         //LazyInitialize();// gets called when component is added in OnEnable
@@ -104,12 +104,17 @@ public class CmvAgent : Agent
     }
     private void Awake()
     {
-        Debug.Log("CmvAgent Awake");
+        Debug.Log($"  CmvAgent Awake on {name}");
     }
- 
+
+    private void Start()
+    {
+        Debug.Log($"  CmvAgent Start on {name}");
+    }
+
     public override void Initialize()
     {
-        Debug.Log($"Called Initialize Override on {name}");
+        Debug.Log($"  Called Initialize Override on {name}");
         // called by Agent.OnEnableHelper that is called when the agent is enabled or becomes active
         base.Initialize();
         //academy = FindObjectOfType<CmvAcademy>();
@@ -121,10 +126,7 @@ public class CmvAgent : Agent
             sphere.transform.parent = transform;
             Destroy(sphere.GetComponent<SphereCollider>());
         }
-
-
         nmoves = 0;
-        Debug.Log("Initialized agent " );
     }
     public override float[] Heuristic()
     {
@@ -181,7 +183,7 @@ public class CmvAgent : Agent
         {
             otherAgents.Remove(agent);
         }
-        Debug.Log("FindOtherAgents - Agent " + name + " has " + otherAgents.Count + " neighbors");
+        Debug.Log($"FindOtherAgents - Agent {name} neighbors:{otherAgents.Count}");
         var aglist = "";
         var ln = otherAgents.Count;
         foreach(var ag in otherAgents)
@@ -192,7 +194,7 @@ public class CmvAgent : Agent
                 aglist += ",";
             }
         }
-        Debug.Log("otherAgents:"+aglist);
+        Debug.Log("   otherAgents:"+aglist);
     }
     int ncollected = 0;
     public override void CollectObservations(VectorSensor sensor)

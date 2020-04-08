@@ -236,6 +236,7 @@ namespace MLAgents
         /// </summary>
         public void LazyInitialize()
         {
+            Debug.Log($"  LazyInitialize on {name}");
             if (m_Initialized)
             {
                 return;

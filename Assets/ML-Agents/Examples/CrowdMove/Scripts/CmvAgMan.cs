@@ -181,11 +181,11 @@ public class CmvAgMan : MonoBehaviour
 
     void Awake()
     {
-        CreateAgents();
+
     }
     void Start()
     {
-
+        CreateAgents();
     }
     private void OnEnable()
     {
